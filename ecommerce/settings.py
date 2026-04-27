@@ -104,9 +104,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # ✅ Cloudinary CONFIG (FINAL)
 
 cloudinary.config(
-    cloud_name='YOUR_CLOUD_NAME',
-    api_key='YOUR_API_KEY',
-    api_secret='YOUR_API_SECRET'
+    cloud_name='dzbnxdnzl',
+    api_key='371147147966672',
+    api_secret='4xrg_lX9r1ov0mlSbjD-lIq3iOM'
 )
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
