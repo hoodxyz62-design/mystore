@@ -1,5 +1,0 @@
-Django
-gunicorn
-whitenoise
-cloudinary
-django-cloudinary-storage
