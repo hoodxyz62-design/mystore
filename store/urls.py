@@ -3,6 +3,10 @@ from . import views
 
 urlpatterns = [
     path('', views.home),
+
+    # 🔐 Register (NEW)
+    path('register/', views.register, name='register'),
+
     path('product/<int:id>/', views.product_detail),
     path('add-to-cart/<int:id>/', views.add_to_cart),
 
@@ -12,7 +16,7 @@ urlpatterns = [
     path('decrease/<int:id>/', views.decrease_quantity),
     path('remove/<int:id>/', views.remove_from_cart),
 
-    # ✅ sirf ek hi checkout
+    # ✅ checkout
     path('checkout/', views.checkout, name='checkout'),
 
     # ✅ orders

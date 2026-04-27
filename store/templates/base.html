@@ -4,7 +4,7 @@
 <head>
     <title>My Store</title>
 
-    <!-- ✅ FIXED CSS PATH -->
+    <!-- ✅ CSS -->
     <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
 
 </head>
@@ -37,6 +37,9 @@
             </form>
         {% else %}
             <a href="/accounts/login/">Login</a>
+
+            <!-- 🔥 NEW REGISTER BUTTON -->
+            <a href="/register/">Register</a>
         {% endif %}
     </div>
 

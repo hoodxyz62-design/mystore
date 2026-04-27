@@ -1,8 +1,22 @@
 from django.shortcuts import render, redirect
 from .models import Product, Cart, Order
+from django.contrib.auth.forms import UserCreationForm
 
 
-# Home page
+# 🔐 Register (NEW)
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/accounts/login/')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'register.html', {'form': form})
+
+
+# 🏠 Home page
 def home(request):
     query = request.GET.get('q')
 
@@ -14,13 +28,13 @@ def home(request):
     return render(request, 'home.html', {'products': products})
 
 
-# Product detail
+# 📦 Product detail
 def product_detail(request, id):
     product = Product.objects.get(id=id)
     return render(request, 'product_detail.html', {'product': product})
 
 
-# Add to cart
+# 🛒 Add to cart
 def add_to_cart(request, id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -39,7 +53,7 @@ def add_to_cart(request, id):
     return redirect('/cart/')
 
 
-# Cart page
+# 🛒 Cart page
 def cart(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -53,7 +67,7 @@ def cart(request):
     return render(request, 'cart.html', {'items': items, 'total': total})
 
 
-# Increase quantity
+# ➕ Increase quantity
 def increase_quantity(request, id):
     item = Cart.objects.get(id=id, user=request.user)
     item.quantity += 1
@@ -61,7 +75,7 @@ def increase_quantity(request, id):
     return redirect('/cart/')
 
 
-# Decrease quantity
+# ➖ Decrease quantity
 def decrease_quantity(request, id):
     item = Cart.objects.get(id=id, user=request.user)
 
@@ -74,14 +88,14 @@ def decrease_quantity(request, id):
     return redirect('/cart/')
 
 
-# Remove item
+# ❌ Remove item
 def remove_from_cart(request, id):
     item = Cart.objects.get(id=id, user=request.user)
     item.delete()
     return redirect('/cart/')
 
 
-# Checkout
+# 💳 Checkout
 def checkout(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -113,7 +127,7 @@ def checkout(request):
     })
 
 
-# Orders page
+# 📦 Orders page
 def orders(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -122,7 +136,7 @@ def orders(request):
     return render(request, 'orders.html', {'orders': orders})
 
 
-# Cancel order
+# ❌ Cancel order
 def cancel_order(request, id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -133,6 +147,8 @@ def cancel_order(request, id):
 
     return redirect('/orders/')
 
+
+# ⚡ Buy Now
 def buy_now(request, id):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -156,5 +172,3 @@ def buy_now(request, id):
         'single_product': product,
         'total': product.price
     })
-    
-    

@@ -5,10 +5,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-*-uvr=hn^@)b+$za9k(w)-f)*!=ct&e6p(_(kzvtpq8k#o!1bd'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['mystore-yf04.onrender.com']
-
+ALLOWED_HOSTS = ['mystore-yf04.onrender.com', '127.0.0.1', 'localhost']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
