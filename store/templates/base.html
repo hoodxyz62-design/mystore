@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Store</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="navbar">
+
+    <!-- 🔥 LEFT SIDE (Logo + Home) -->
+    <div class="left-section">
+        <h2 class="logo">My Store</h2>
+
+        <div class="home-link">
+            <a href="/">Home</a>
+        </div>
+    </div>
+
+    <!-- 🔥 CENTER (Search) -->
+    <form action="/" method="get" class="search-box">
+        <input type="text" name="q" placeholder="Search products...">
+        <button type="submit">🔍</button>
+    </form>
+
+    <!-- 🔥 RIGHT SIDE (Links) -->
+    <div class="nav-links">
+
+        <a href="/cart/">Cart 🛒</a>
+        <a href="/orders/">My Orders 📦</a>
+
+        {% if user.is_authenticated %}
+            <span class="user">Hi, {{ user.username }}</span>
+
+            <form action="/accounts/logout/" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        {% else %}
+            <a href="/accounts/login/">Login</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

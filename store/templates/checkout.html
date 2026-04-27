@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 style="text-align:center;">Checkout 💳</h2>
+
+<div style="text-align:center;">
+
+{% if items %}
+    {% for item in items %}
+
+        <!-- 🔥 PRODUCT CARD -->
+        <div style="margin-bottom:15px;">
+
+            <!-- 🔥 IMAGE -->
+            {% if item.product.image %}
+                <img src="{{ item.product.image.url }}"
+                     style="width:120px; height:120px; object-fit:cover; border-radius:10px;">
+            {% endif %}
+
+            <p>{{ item.product.name }} - ₹{{ item.product.price }} × {{ item.quantity }}</p>
+        </div>
+
+    {% endfor %}
+{% endif %}
+
+{% if single_product %}
+
+    <!-- 🔥 SINGLE PRODUCT -->
+    <div style="margin-bottom:15px;">
+
+        {% if single_product.image %}
+            <img src="{{ single_product.image.url }}"
+                 style="width:120px; height:120px; object-fit:cover; border-radius:10px;">
+        {% endif %}
+
+        <p>{{ single_product.name }} - ₹{{ single_product.price }}</p>
+    </div>
+
+{% endif %}
+
+<h3>Total: ₹{{ total }}</h3>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <textarea name="address" required placeholder="Enter address"
+        style="width:250px; padding:10px; border-radius:6px; border:1px solid #ccc;"></textarea><br><br>
+
+    <button type="submit"
+        style="
+            background:white;
+            color:black;
+            border:1px solid black;
+            padding:12px 20px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.7);
+        "
+        onmouseover="this.style.background='black'; this.style.color='white';"
+        onmouseout="this.style.background='white'; this.style.color='black';"
+    >
+        Place Order 🚀
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>Products</h2>
+
+<div class="products">
+
+{% for product in products %}
+
+    <div class="card">
+{% if product.image %}
+            <img src="{{ product.image.url }}">
+        {% endif %}
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.price }}</p>
+
+        <a href="/product/{{ product.id }}/">
+            <button class="btn">View</button>
+        </a>
+
+        <a href="/add-to-cart/{{ product.id }}/">
+            <button class="btn-success">Add to 🛒</button>
+        </a>
+    </div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

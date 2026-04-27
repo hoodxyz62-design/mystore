@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 style="text-align:center;">My Orders 📦</h2>
+
+<div style="display:flex; justify-content:center; flex-wrap:wrap;">
+
+{% if orders %}
+
+    {% for order in orders %}
+    
+    <div style="
+        background:#fff;
+        padding:20px;
+        margin:15px;
+        border-radius:10px;
+        width:220px;
+        text-align:center;
+        box-shadow:0 0 10px rgba(0,0,0,0.2);
+    ">
+    {% if order.product.image %}
+    <img src="{{ order.product.image.url }}" 
+         style="width:100%; height:150px; object-fit:cover; border-radius:10px; margin-bottom:10px;">
+{% endif %}
+        <h3>{{ order.product.name }}</h3>
+        <p>Quantity: {{ order.quantity }}</p>
+        <p>Address: {{ order.address }}</p>
+
+       <p>
+Status:
+<span class="
+    {% if order.status == 'Pending' %}status-pending
+    {% elif order.status == 'Cancelled' %}status-cancelled
+    {% else %}status-delivered
+    {% endif %}
+">
+    {{ order.status }}
+</span>
+</p>
+
+        {% if order.status != "Cancelled" %}
+        <a href="/cancel-order/{{ order.id }}/">
+            <button style="padding:8px 15px; background:red; color:white; border:none; border-radius:5px;">
+                Cancel ❌
+            </button>
+        </a>
+        {% else %}
+        <p style="color:red;">Cancelled</p>
+        {% endif %}
+
+    </div>
+
+
+    {% endfor %}
+
+{% else %}
+
+    <h3>No Orders Yet 😢</h3>
+
+{% endif %}
+
+</div>
+
+{% endblock %}
