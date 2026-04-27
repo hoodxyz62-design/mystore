@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import cloudinary   # ✅ add
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,6 +9,8 @@ SECRET_KEY = 'django-insecure-*-uvr=hn^@)b+$za9k(w)-f)*!=ct&e6p(_(kzvtpq8k#o!1bd
 DEBUG = False
 
 ALLOWED_HOSTS = ['mystore-yf04.onrender.com', '127.0.0.1', 'localhost']
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -17,13 +20,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'store',
+
+    # ✅ Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    # 👇 WhiteNoise add kiya
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,31 +80,36 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
-# ✅ STATIC FILES FIX (IMPORTANT)
+# ✅ STATIC FILES
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'store/static')   # 👈 main static folder
+    os.path.join(BASE_DIR, 'store/static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 👈 Render ke liye
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# MEDIA FILES
+# ❌ LOCAL MEDIA हटाया (Cloudinary use होगा)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
+# ✅ Cloudinary CONFIG (FINAL)
+
+cloudinary.config(
+    cloud_name='YOUR_CLOUD_NAME',
+    api_key='YOUR_API_KEY',
+    api_secret='YOUR_API_SECRET'
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 LOGIN_REDIRECT_URL = '/'
