@@ -7,8 +7,7 @@ SECRET_KEY = 'django-insecure-*-uvr=hn^@)b+$za9k(w)-f)*!=ct&e6p(_(kzvtpq8k#o!1bd
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['mystore-yf04.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
